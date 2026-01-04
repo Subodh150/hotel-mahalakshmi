@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Hotel Mahalakshmi - Luxury hotel and fine dining restaurant. Book your stay and reserve your table with our advanced booking system.">
+    <title>Hotel Mahalakshmi - Luxury Hotel & Restaurant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Hotel Mahalakshmi</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#rooms">Rooms</a></li>
+                <li><a href="#restaurant">Restaurant</a></li>
+                <li><a href="#booking">Book Now</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Hotel Mahalakshmi</h1>
+            <p class="hero-subtitle">Experience Luxury, Comfort & Exceptional Dining</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('booking')">Book Your Stay</button>
+                <button class="btn btn-secondary" onclick="scrollToSection('restaurant')">Reserve a Table</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="rooms" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Our Luxurious Rooms</h2>
+            <p class="section-description">Choose from our carefully curated selection of premium accommodations</p>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card">
+                <img src="room-deluxe.jpg" alt="Deluxe Room" class="room-image" id="deluxe-room-img">
+                <div class="room-content">
+                    <h3 class="room-title">Deluxe Room</h3>
+                    <p class="room-price">₹4,999 / night</p>
+                    <ul class="room-features">
+                        <li>King Size Bed</li>
+                        <li>City View</li>
+                        <li>Free WiFi</li>
+                        <li>24/7 Room Service</li>
+                        <li>Mini Bar</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectRoom('Deluxe Room', 4999)">Select Room</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <img src="room-suite.jpg" alt="Executive Suite" class="room-image" id="suite-room-img">
+                <div class="room-content">
+                    <h3 class="room-title">Executive Suite</h3>
+                    <p class="room-price">₹8,999 / night</p>
+                    <ul class="room-features">
+                        <li>Spacious Living Area</li>
+                        <li>Premium Amenities</li>
+                        <li>Complimentary Breakfast</li>
+                        <li>Private Balcony</li>
+                        <li>Jacuzzi</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectRoom('Executive Suite', 8999)">Select Room</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <img src="room-presidential.jpg" alt="Presidential Suite" class="room-image" id="presidential-room-img">
+                <div class="room-content">
+                    <h3 class="room-title">Presidential Suite</h3>
+                    <p class="room-price">₹15,999 / night</p>
+                    <ul class="room-features">
+                        <li>2 Bedrooms + Living Room</li>
+                        <li>Panoramic Views</li>
+                        <li>Personal Butler Service</li>
+                        <li>Private Dining Area</li>
+                        <li>Premium Bar</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectRoom('Presidential Suite', 15999)">Select
+                        Room</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="section booking-section-bg">
+        <div class="section-header">
+            <h2 class="section-title">Make Your Reservation</h2>
+            <p class="section-description">Book your room or reserve your table in just a few clicks</p>
+        </div>
+        <div class="booking-grid">
+            <!-- Hotel Booking Card -->
+            <div class="booking-card">
+                <img src="hotel-booking.jpg" alt="Hotel Booking" class="card-image" id="hotel-booking-img">
+                <h3 class="card-title">Hotel Booking</h3>
+                <form id="hotel-booking-form">
+                    <div class="form-group">
+                        <label class="form-label" for="room-type">Room Type</label>
+                        <select class="form-select" id="room-type" required>
+                            <option value="">Select a room</option>
+                            <option value="Deluxe Room">Deluxe Room - ₹4,999/night</option>
+                            <option value="Executive Suite">Executive Suite - ₹8,999/night</option>
+                            <option value="Presidential Suite">Presidential Suite - ₹15,999/night</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="check-in">Check-in Date</label>
+                        <input type="date" class="form-input" id="check-in" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="check-out">Check-out Date</label>
+                        <input type="date" class="form-input" id="check-out" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="guests">Number of Guests</label>
+                        <select class="form-select" id="guests" required>
+                            <option value="">Select guests</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="guest-name">Full Name</label>
+                        <input type="text" class="form-input" id="guest-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="guest-email">Email</label>
+                        <input type="email" class="form-input" id="guest-email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="guest-phone">Phone Number</label>
+                        <input type="tel" class="form-input" id="guest-phone" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Book Now</button>
+                </form>
+            </div>
+
+            <!-- Restaurant Booking Card -->
+            <div class="booking-card">
+                <img src="restaurant-booking.jpg" alt="Restaurant Booking" class="card-image"
+                    id="restaurant-booking-img">
+                <h3 class="card-title">Restaurant Reservation</h3>
+                <form id="restaurant-booking-form">
+                    <div class="form-group">
+                        <label class="form-label" for="reservation-date">Reservation Date</label>
+                        <input type="date" class="form-input" id="reservation-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reservation-time">Time Slot</label>
+                        <select class="form-select" id="reservation-time" required>
+                            <option value="">Select time</option>
+                            <option value="12:00 PM">12:00 PM - Lunch</option>
+                            <option value="1:00 PM">1:00 PM - Lunch</option>
+                            <option value="2:00 PM">2:00 PM - Lunch</option>
+                            <option value="7:00 PM">7:00 PM - Dinner</option>
+                            <option value="8:00 PM">8:00 PM - Dinner</option>
+                            <option value="9:00 PM">9:00 PM - Dinner</option>
+                            <option value="10:00 PM">10:00 PM - Dinner</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="party-size">Party Size</label>
+                        <select class="form-select" id="party-size" required>
+                            <option value="">Select party size</option>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5 People</option>
+                            <option value="6">6 People</option>
+                            <option value="7-10">7-10 People</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="diner-name">Full Name</label>
+                        <input type="text" class="form-input" id="diner-name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="diner-email">Email</label>
+                        <input type="email" class="form-input" id="diner-email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="diner-phone">Phone Number</label>
+                        <input type="tel" class="form-input" id="diner-phone" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="special-requests">Special Requests (Optional)</label>
+                        <input type="text" class="form-input" id="special-requests"
+                            placeholder="Dietary requirements, celebrations, etc.">
+                    </div>
+                    <button type="submit" class="btn-submit">Reserve Table</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restaurant Section -->
+    <section id="restaurant" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Fine Dining Experience</h2>
+            <p class="section-description">Savor exquisite cuisine in an elegant atmosphere</p>
+        </div>
+        <div class="restaurant-content">
+            <img src="restaurant-main.jpg" alt="Restaurant" id="restaurant-main-img" class="restaurant-main-image">
+            <p class="restaurant-description">
+                Our award-winning restaurant offers a perfect blend of traditional Indian flavors and contemporary
+                culinary artistry.
+                Experience fine dining at its best with our carefully curated menu, premium ingredients, and exceptional
+                service.
+            </p>
+            <div class="restaurant-cta">
+                <button class="btn btn-primary" onclick="scrollToSection('booking')">Reserve Your Table</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-description">We're here to help with any questions or special requests</p>
+        </div>
+        <div class="contact-grid">
+            <div>
+                <h4>📍 Address</h4>
+                <p class="contact-info">123 Luxury Avenue<br>Mumbai, Maharashtra 400001<br>India</p>
+            </div>
+            <div>
+                <h4>📞 Phone</h4>
+                <p class="contact-info">+91 22 1234 5678<br>+91 98765 43210</p>
+            </div>
+            <div>
+                <h4>✉️ Email</h4>
+                <p class="contact-info">info@hotelmahalakshmi.com<br>reservations@hotelmahalakshmi.com</p>
+            </div>
+            <div>
+                <h4>🕐 Hours</h4>
+                <p class="contact-info">24/7 Reception<br>Restaurant: 12 PM - 11 PM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Hotel Mahalakshmi</h3>
+                <p>Your home away from home. Experience luxury, comfort, and exceptional service.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#rooms">Rooms</a>
+                <a href="#restaurant">Restaurant</a>
+                <a href="#booking">Book Now</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#">Room Service</a>
+                <a href="#">Spa & Wellness</a>
+                <a href="#">Conference Rooms</a>
+                <a href="#">Airport Transfer</a>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Hotel Mahalakshmi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot Toggle Button -->
+    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chatbot">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.38 0-2.68-.31-3.85-.85l-.27-.13-2.82.48.48-2.82-.13-.27C4.31 14.68 4 13.38 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z" />
+            <circle cx="9" cy="12" r="1" />
+            <circle cx="12" cy="12" r="1" />
+            <circle cx="15" cy="12" r="1" />
+        </svg>
+    </button>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-title">Hotel Assistant</div>
+            <button class="chatbot-close" id="chatbot-close" aria-label="Close Chatbot">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot">
+                <div class="message-avatar">M</div>
+                <div class="message-content">
+                    <p>Hello! 👋 Welcome to Hotel Mahalakshmi. I'm your virtual assistant. How can I help you today?</p>
+                    <div class="quick-replies">
+                        <button class="quick-reply" onclick="sendQuickReply('Room prices')">Room Prices</button>
+                        <button class="quick-reply" onclick="sendQuickReply('Restaurant menu')">Restaurant Menu</button>
+                        <button class="quick-reply" onclick="sendQuickReply('Amenities')">Amenities</button>
+                        <button class="quick-reply" onclick="sendQuickReply('Location')">Location</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Type your message..." />
+            <button class="chatbot-send" id="chatbot-send">➤</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
