@@ -17,8 +17,8 @@ Here is all the information about the hotel:
 
 ROOMS:
 - Deluxe Room: ₹1,999/night — King Size Bed, Valley View, Free WiFi, 24/7 Room Service
-- Executive Suite: ₹2,999/night — Spacious Living Area, Premium Amenities, Complimentary Breakfast, Balcony
-- Family Suite: ₹3,999/night — 4 Bedrooms, Panoramic Views, Private Dining Area
+- Executive Suite: ₹2,999/night — Spacious Living Area, Premium Amenities, Complimentary Breakfast, Balcony, River View
+- Family Suite: ₹3,999/night — 4 Bedrooms, Panoramic Views, Private Dining Area, 24/7 Room Service, River View
 
 RESTAURANT:
 - Fine dining offering traditional Indian flavors and contemporary culinary artistry
@@ -291,7 +291,7 @@ async function getAIResponse(userMessage) {
 const chatbotKnowledge = {
     rooms: {
         keywords: ['room', 'accommodation', 'stay', 'suite', 'deluxe', 'family', 'price', 'cost', 'rate', 'night'],
-        response: "We offer three luxurious room types:\n\n🏨 Deluxe Room — ₹1,999/night\n• King Size Bed, Valley View, Free WiFi\n\n🏨 Executive Suite — ₹2,999/night\n• Spacious Living Area, Complimentary Breakfast, Balcony\n\n🏨 Family Suite — ₹3,999/night\n• 4 Bedrooms, Panoramic Views, Private Dining Area\n\nWould you like to book a room?"
+        response: "We offer three luxurious room types:\n\n🏨 Deluxe Room — ₹1,999/night\n• King Size Bed, Valley View, Free WiFi\n\n🏨 Executive Suite — ₹2,999/night\n• Spacious Living Area, Complimentary Breakfast, Balcony, River View\n\n🏨 Family Suite — ₹3,999/night\n• 4 Bedrooms, Panoramic Views, Private Dining Area, 24/7 Room Service, River View\n\nWould you like to book a room?"
     },
     restaurant: {
         keywords: ['restaurant', 'food', 'dining', 'menu', 'eat', 'dinner', 'lunch', 'breakfast', 'cuisine', 'table'],
