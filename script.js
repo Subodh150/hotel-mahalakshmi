@@ -11,21 +11,21 @@
 // Use a backend proxy server instead.
 const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE'; // Replace with your key
 
-const HOTEL_SYSTEM_PROMPT = `You are a helpful and friendly AI assistant for Hotel Mahalakshmi, a luxury hotel and restaurant located in Kaneth, Uttarkashi, Uttarakhand, India.
+const HOTEL_SYSTEM_PROMPT = `You are a helpful and friendly AI assistant for Hotel Mahalakshmi, a luxury hotel and restaurant located in Kaneth(Aungee), Uttarkashi, Uttarakhand, India.
 
 Here is all the information about the hotel:
 
 ROOMS:
-- Deluxe Room: ₹1,999/night — King Size Bed, City View, Free WiFi, 24/7 Room Service, Mini Bar
-- Executive Suite: ₹2,999/night — Spacious Living Area, Premium Amenities, Complimentary Breakfast, Private Balcony, Jacuzzi
-- Family Suite: ₹3,999/night — 2 Bedrooms + Living Room, Panoramic Views, Personal Butler Service, Private Dining Area, Premium Bar
+- Deluxe Room: ₹1,999/night — King Size Bed, Valley View, Free WiFi, 24/7 Room Service
+- Executive Suite: ₹2,999/night — Spacious Living Area, Premium Amenities, Complimentary Breakfast, Balcony
+- Family Suite: ₹3,999/night — 4 Bedrooms, Panoramic Views, Private Dining Area
 
 RESTAURANT:
 - Fine dining offering traditional Indian flavors and contemporary culinary artistry
 - Hours: 08:00 AM – 11:00 PM
 - Time slots: Breakfast (12 PM), Lunch (1–2 PM), Dinner (7–10 PM)
 
-AMENITIES: 24/7 Room Service, Spa & Wellness, Fitness Center, Free High-Speed WiFi, Complimentary Parking, Conference Rooms, Airport Transfer, Concierge Service
+AMENITIES: 24/7 Room Service, Free High-Speed WiFi, Complimentary Parking, Rooms, Info Service
 
 CONTACT:
 - Address: PHX3+J26, Uttarkashi - Gangotri Rd, Kaneth, Uttarakhand 249194
@@ -291,7 +291,7 @@ async function getAIResponse(userMessage) {
 const chatbotKnowledge = {
     rooms: {
         keywords: ['room', 'accommodation', 'stay', 'suite', 'deluxe', 'family', 'price', 'cost', 'rate', 'night'],
-        response: "We offer three luxurious room types:\n\n🏨 Deluxe Room — ₹1,999/night\n• King Size Bed, City View, Free WiFi\n\n🏨 Executive Suite — ₹2,999/night\n• Spacious Living Area, Complimentary Breakfast, Jacuzzi\n\n🏨 Family Suite — ₹3,999/night\n• 2 Bedrooms + Living Room, Panoramic Views, Butler Service\n\nWould you like to book a room?"
+        response: "We offer three luxurious room types:\n\n🏨 Deluxe Room — ₹1,999/night\n• King Size Bed, Valley View, Free WiFi\n\n🏨 Executive Suite — ₹2,999/night\n• Spacious Living Area, Complimentary Breakfast, Balcony\n\n🏨 Family Suite — ₹3,999/night\n• 4 Bedrooms, Panoramic Views, Private Dining Area\n\nWould you like to book a room?"
     },
     restaurant: {
         keywords: ['restaurant', 'food', 'dining', 'menu', 'eat', 'dinner', 'lunch', 'breakfast', 'cuisine', 'table'],
@@ -299,11 +299,11 @@ const chatbotKnowledge = {
     },
     amenities: {
         keywords: ['amenities', 'facilities', 'services', 'spa', 'gym', 'wifi', 'parking', 'pool'],
-        response: "Hotel Mahalakshmi's premium amenities:\n\n✨ 24/7 Room Service\n✨ Spa & Wellness Center\n✨ Fitness Center\n✨ Free High-Speed WiFi\n✨ Complimentary Parking\n✨ Conference Rooms\n✨ Airport Transfer Service\n✨ Concierge Service\n\nAnything specific you'd like to know about?"
+        response: "Hotel Mahalakshmi's premium amenities:\n\n✨ 24/7 Room Service\n✨ Free High-Speed WiFi\n✨ Complimentary Parking\n✨ Rooms\n✨ Info Service\n\nAnything specific you'd like to know about?"
     },
     location: {
         keywords: ['location', 'address', 'where', 'directions', 'map', 'nearby', 'uttarkashi'],
-        response: "📍 Hotel Mahalakshmi\nPHX3+J26, Uttarkashi - Gangotri Rd\nKaneth, Uttarakhand 249194\n\n📞 +91 8449130785\n📞 +91 8979047805\n✉️ Mahalakshmihotel150@gmail.com\n\nWe're on the Uttarkashi–Gangotri route, perfect for Char Dham pilgrims and Himalayan travellers!"
+        response: "📍 Hotel Mahalakshmi\nPHX3+J26, Uttarkashi - Gangotri Rd\nKaneth(Aungee), Uttarakhand 249194\n\n📞 +91 8449130785\n📞 +91 8979047805\n✉️ Mahalakshmihotel150@gmail.com\n\nWe're on the Uttarkashi–Gangotri route, perfect for Char Dham pilgrims and Himalayan travellers!"
     },
     booking: {
         keywords: ['book', 'reserve', 'reservation', 'availability', 'check-in', 'checkout', 'how to'],
