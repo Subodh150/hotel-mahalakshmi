@@ -3,6 +3,18 @@
 // ===========================
 
 // ===========================
+// EXTERNAL INTEGRATION CONFIG
+// ===========================
+// Web3Forms Access Key for Email (Get from https://web3forms.com/)
+const WEB3FORMS_ACCESS_KEY = '2eab75ab-1299-437a-9549-1688b81a9b51';
+
+// Google Apps Script Web App URL for Google Sheets
+const GOOGLE_SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzXppBLXFV5h9Gkd0Si1vshQunFS_la1N3S9tZ-I9c6K4UUyX1yJZTjMqFU1Hd_PByK/exec';
+
+// Hotel WhatsApp Number (include country code, without +)
+const HOTEL_WHATSAPP_NUMBER = '918979047805';
+
+// ===========================
 // AI CHATBOT CONFIGURATION
 // ===========================
 // To enable AI-powered responses, add your Anthropic API key below.
@@ -146,13 +158,14 @@ function setupFormHandlers() {
     }
 }
 
-function handleHotelBooking() {
+async function handleHotelBooking() {
     const roomType = document.getElementById('room-type').value;
     const checkIn = document.getElementById('check-in').value;
     const checkOut = document.getElementById('check-out').value;
     const guests = document.getElementById('guests').value;
     const name = document.getElementById('guest-name').value;
     const email = document.getElementById('guest-email').value;
+    const phone = document.getElementById('guest-phone') ? document.getElementById('guest-phone').value : '';
 
     const checkInDate = new Date(checkIn);
     const checkOutDate = new Date(checkOut);
@@ -161,24 +174,114 @@ function handleHotelBooking() {
     const prices = { 'Deluxe Room': 1999, 'Executive Suite': 2999, 'Family Suite': 3999 };
     const total = (prices[roomType] || 0) * nights;
 
-    alert(`✅ Booking Confirmed!\n\nRoom: ${roomType}\nGuest: ${name}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nNights: ${nights}\nGuests: ${guests}\nTotal: ₹${total.toLocaleString('en-IN')}\n\nA confirmation email will be sent to ${email}`);
-    document.getElementById('hotel-booking-form').reset();
+    const bookingData = {
+        type: 'Hotel Booking',
+        roomType, checkIn, checkOut, nights, guests, name, email, phone,
+        total: `₹${total.toLocaleString('en-IN')}`,
+        timestamp: new Date().toISOString()
+    };
+
+    const emailMessage = `Room: ${roomType}\nGuest: ${name}\nEmail: ${email}\nPhone: ${phone}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nNights: ${nights}\nGuests: ${guests}\nTotal: ₹${total.toLocaleString('en-IN')}`;
+
+    const submitBtn = document.querySelector('#hotel-booking-form .btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Processing...';
+    submitBtn.disabled = true;
+
+    try {
+        if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'YOUR_WEB3FORMS_ACCESS_KEY_HERE') {
+            await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    access_key: WEB3FORMS_ACCESS_KEY,
+                    subject: `New Hotel Booking from ${name}`,
+                    message: emailMessage,
+                    from_name: "Hotel Mahalakshmi Bookings",
+                    replyto: email
+                })
+            }).catch(err => console.error(err));
+        }
+
+        if (GOOGLE_SHEET_API_URL && GOOGLE_SHEET_API_URL !== 'YOUR_GOOGLE_SHEET_WEB_APP_URL_HERE') {
+            const formData = new URLSearchParams();
+            for (const key in bookingData) formData.append(key, bookingData[key]);
+
+            await fetch(GOOGLE_SHEET_API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).catch(err => console.error(err));
+        }
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        document.getElementById('hotel-booking-form').reset();
+
+        const wpMessage = `Hello, I'd like to confirm my *Hotel Booking* Request!\n\n*Name:* ${name}\n*Room:* ${roomType}\n*Check-in:* ${checkIn}\n*Check-out:* ${checkOut}\n*Nights:* ${nights}\n*Guests:* ${guests}\n*Total:* ₹${total.toLocaleString('en-IN')}\n\nPlease let me know the payment details!`;
+        window.open(`https://wa.me/${HOTEL_WHATSAPP_NUMBER}?text=${encodeURIComponent(wpMessage)}`, '_blank');
+    }
 }
 
-function handleRestaurantBooking() {
+async function handleRestaurantBooking() {
     const date = document.getElementById('reservation-date').value;
     const time = document.getElementById('reservation-time').value;
     const partySize = document.getElementById('party-size').value;
     const name = document.getElementById('diner-name').value;
     const email = document.getElementById('diner-email').value;
+    const phone = document.getElementById('diner-phone') ? document.getElementById('diner-phone').value : '';
     const requests = document.getElementById('special-requests').value;
 
-    let message = `✅ Table Reserved!\n\nName: ${name}\nDate: ${date}\nTime: ${time}\nParty Size: ${partySize}`;
-    if (requests) message += `\nSpecial Requests: ${requests}`;
-    message += `\n\nA confirmation will be sent to ${email}`;
+    const bookingData = {
+        type: 'Restaurant Reservation',
+        date, time, partySize, name, email, phone,
+        requests: requests || 'None',
+        timestamp: new Date().toISOString()
+    };
 
-    alert(message);
-    document.getElementById('restaurant-booking-form').reset();
+    let messageBody = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nDate: ${date}\nTime: ${time}\nParty Size: ${partySize}`;
+    if (requests) messageBody += `\nSpecial Requests: ${requests}`;
+
+    const submitBtn = document.querySelector('#restaurant-booking-form .btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Processing...';
+    submitBtn.disabled = true;
+
+    try {
+        if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'YOUR_WEB3FORMS_ACCESS_KEY_HERE') {
+            await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    access_key: WEB3FORMS_ACCESS_KEY,
+                    subject: `New Restaurant Reservation from ${name}`,
+                    message: messageBody,
+                    from_name: "Mahalakshmi Restaurant Bookings",
+                    replyto: email
+                })
+            }).catch(err => console.error(err));
+        }
+
+        if (GOOGLE_SHEET_API_URL && GOOGLE_SHEET_API_URL !== 'YOUR_GOOGLE_SHEET_WEB_APP_URL_HERE') {
+            const formData = new URLSearchParams();
+            for (const key in bookingData) formData.append(key, bookingData[key]);
+
+            await fetch(GOOGLE_SHEET_API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).catch(err => console.error(err));
+        }
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        document.getElementById('restaurant-booking-form').reset();
+
+        let wpMessage = `Hello, I'd like to confirm my *Restaurant Reservation*!\n\n*Name:* ${name}\n*Date:* ${date}\n*Time:* ${time}\n*Party Size:* ${partySize}`;
+        if (requests) wpMessage += `\n*Requests:* ${requests}`;
+
+        window.open(`https://wa.me/${HOTEL_WHATSAPP_NUMBER}?text=${encodeURIComponent(wpMessage)}`, '_blank');
+    }
 }
 
 // ===========================
