@@ -514,3 +514,87 @@ window.addEventListener('scroll', () => {
         navbar.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.15)';
     }
 });
+
+// ===========================
+// Gallery Dynamic Upload System
+// ===========================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const uploadInput = document.getElementById('gallery-upload-input');
+    const galleryGrid = document.getElementById('gallery-grid');
+    const uploadCard = document.getElementById('upload-card');
+
+    // Load saved images from LocalStorage on page load
+    const loadSavedMedia = () => {
+        const savedMedia = JSON.parse(localStorage.getItem('hotel_gallery_media')) || [];
+        savedMedia.forEach(media => {
+            renderMediaCard(media.dataUrl, media.type, media.name);
+        });
+    };
+
+    // Save a new media item to LocalStorage
+    const saveMedia = (dataUrl, type, name) => {
+        const savedMedia = JSON.parse(localStorage.getItem('hotel_gallery_media')) || [];
+        savedMedia.push({ dataUrl, type, name });
+        // Keeping it small to prevent Quota Exceeded errors roughly 5MB limit
+        try {
+            localStorage.setItem('hotel_gallery_media', JSON.stringify(savedMedia));
+        } catch (e) {
+            console.error('Storage limit exceeded, cannot save more images');
+            alert('Browser storage is full. Cannot save more images directly to cache.');
+        }
+    };
+
+    // Render new card visually
+    const renderMediaCard = (dataUrl, type, name) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'gallery-item';
+
+        if (type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = dataUrl;
+            img.alt = name || "User Uploaded Image";
+            itemDiv.appendChild(img);
+        } else if (type.startsWith('video/')) {
+            const video = document.createElement('video');
+            video.src = dataUrl;
+            video.controls = true;
+            video.style.width = '100%';
+            video.style.height = '100%';
+            video.style.objectFit = 'cover';
+            itemDiv.appendChild(video);
+        }
+
+        const overlayDiv = document.createElement('div');
+        overlayDiv.className = 'gallery-overlay';
+        const span = document.createElement('span');
+        span.textContent = 'Guest Upload';
+        overlayDiv.appendChild(span);
+        itemDiv.appendChild(overlayDiv);
+
+        // Insert before the upload card so the button stays at the end
+        galleryGrid.insertBefore(itemDiv, uploadCard);
+    };
+
+    if (uploadInput) {
+        uploadInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (!files) return;
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const dataUrl = event.target.result;
+                    renderMediaCard(dataUrl, file.type, file.name);
+                    saveMedia(dataUrl, file.type, file.name);
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            // Reset input so the same file can be uploaded again if needed
+            uploadInput.value = '';
+        });
+    }
+
+    loadSavedMedia();
+});
